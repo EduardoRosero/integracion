@@ -1,3 +1,8 @@
+**  Iniciar con git
+
+	git init
+
+
 **  Mostrar el estado de nuestros archivos
 
 	git status
