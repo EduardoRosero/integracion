@@ -425,6 +425,14 @@ public class Pantalla extends javax.swing.JFrame {
         double dp = (funcc(funcion, (x+h)) - funcc(funcion, x))/h;
         return dp;
     }
+
+pvivate String mostrarMensaje()
+{
+	String mensaje = "Este es un mensaje de prueba";
+	return mensaje;
+}
+
+
     
     public double derivadaRegresiva(String funcion, double x, double h) throws UnknownFunctionException, UnparsableExpressionException
     {
