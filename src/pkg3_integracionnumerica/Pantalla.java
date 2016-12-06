@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package pkg3_integracionnumerica;
+﻿package pkg3_integracionnumerica;
 
 import javax.swing.JOptionPane;
 import de.congrace.exp4j.Calculable;
@@ -14,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author tuteggito
+ * @author Luis Eduardo Rosero Correa
  */
 public class Pantalla extends javax.swing.JFrame {
 
