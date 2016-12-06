@@ -416,28 +416,24 @@ public class Pantalla extends javax.swing.JFrame {
     {
         Calculable calc = new ExpressionBuilder(funcion)
                     .withVariable("x", x)
-//                    .withVariable("y", y)
                     .build();
                     double result1 = calc.calculate();
                     return result1;
     }
     public double derivadaProgresiva(String funcion, double x, double h) throws UnknownFunctionException, UnparsableExpressionException
     {
-        //double dp = (funcionDerivada(x + h) - funcionDerivada(x))/h;
         double dp = (funcc(funcion, (x+h)) - funcc(funcion, x))/h;
         return dp;
     }
     
     public double derivadaRegresiva(String funcion, double x, double h) throws UnknownFunctionException, UnparsableExpressionException
     {
-        //double dr = (funcionDerivada(x) - funcionDerivada(x-h))/h;
         double dr = (funcc(funcion, x) - funcc(funcion, (x-h)))/h;
         return dr;
     }
     
     public double derivadaDiferenciasCentrales(String funcion, double x, double h) throws UnknownFunctionException, UnparsableExpressionException
     {
-        //double ddc = (funcionDerivada(x + h) - funcionDerivada(x-h))/(2*h);
         double ddc = (funcc(funcion, (x+h)) - funcc(funcion, (x-h)))/(2*h);
         return ddc;
     }
@@ -447,18 +443,11 @@ public class Pantalla extends javax.swing.JFrame {
         double inc = (2 * h);
         double y = x+inc;
         double z = x-inc;
-        //double segunda = (funcionDerivada(x + inc) - (2*funcionDerivada(x)) + funcionDerivada(x - inc) ) / Math.pow(inc, 2);
         double segunda = (funcc(funcion, y) - (2*funcc(funcion, x)) + funcc(funcion, z) ) / (inc*inc);
         return segunda;
     }
     
-    //Usar esta en caso de error del constructor para funciones de las rerivadas
-//    public double funcionDerivada(double x)
-//    {
-//        double a = x-1, b=x+1;
-//        double funcion = Math.sqrt(a/b);
-//        return funcion;
-//    }
+
     public double calcularH(double a, double b, double n) {
         double h = 0.00d;
         h = (b - a) / n;
@@ -469,7 +458,6 @@ public class Pantalla extends javax.swing.JFrame {
         double sumatoria = 0.000d;
         for (int i = 1; i <= n; i++) {
             double x = (a + (i * h));
-            //sumatoria = sumatoria + (h * (devuelveFuncion(x)));
             sumatoria = sumatoria + (h * (funcc(funcion, x)));
         }
         return sumatoria;
@@ -484,7 +472,6 @@ public class Pantalla extends javax.swing.JFrame {
         double sumatoria = 0.000d;
         for (int i = 0; i < n; i++) {
             double x = (a + (i * h));
-            //sumatoria = sumatoria + (h * (devuelveFuncion(x)));
             sumatoria = sumatoria + (h * (funcc(funcion, x)));
         }
         return sumatoria;
@@ -494,10 +481,8 @@ public class Pantalla extends javax.swing.JFrame {
         double sumatoria = 0.000d, aux = 0.000d;
         for (int i = 1; i < n - 1; i++) {
             double x = (a + (i * h));
-            //aux = aux + (devuelveFuncion(x));
             aux = aux + (funcc(funcion, x));
         }
-        //sumatoria = (h / 2) * (devuelveFuncion(a) + (2 * aux) + devuelveFuncion(b));
         sumatoria = (h / 2) * (funcc(funcion, a) + (2 * aux) + funcc(funcion, b));
         return sumatoria;
     }
@@ -506,18 +491,15 @@ public class Pantalla extends javax.swing.JFrame {
         double pares = 0.000d, impares = 0.000d, sumatoria = 0.000d;
         for (int i = 1; i < n; i = i + 2) {
             double x = (a + (i * h));
-            //impares = impares + devuelveFuncion(x);
             impares = impares + funcc(funcion, x);
         }
 
         for (int i = 2; i <= n; i = i + 2) {
             double x = (a + (i * h));
-            //pares = pares + devuelveFuncion(x);
             pares = pares + funcc(funcion, x);
         }
         //sumatoria = (h / 3) * (devuelveFuncion(a) + (2 * pares) + (4 * impares)); //este es el que vale
         sumatoria = (h / 3) * (funcc(funcion, a) + (2 * pares) + (4 * impares));
-        //sumatoria = (h/3) * (devuelveFuncion(a) + (4*pares) + (2*impares));
         return sumatoria;
     }
 
