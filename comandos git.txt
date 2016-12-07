@@ -8,7 +8,7 @@
 	git status
 
 
-**  Añadir nuestros archivos modificados al git
+**  Añadir nuestros archivos modificados
 
 	git add -A
 	git add nombre.archivo
@@ -19,14 +19,20 @@
 	git commit -m "Mensaje que describe los cambios"
 
  
-**  Mostrar el log de los commits
+**  Mostrar el historial de los commits
 
 	git log
 
 
-**  Movernos entre commits y ramas
+**  Movernos entre commits
 
-	git checkout
+	git checkout codigo_del_commit
+
+
+**  Movernos al ultimo commit creado
+**  (Es el nombre de la rama en la que estamos posicionados o creamos el commit)
+
+	git checkout Nombre_Rama
 
 
 **  Mostrar ramas 
@@ -36,24 +42,26 @@
 
 **  Crear ramas (Nombre sin comillas)
  
-	git branch Nombre
+	git branch Nombre_Rama
 
 
 **  Cambiar de rama
 
-	git checkout Nombre
+	git checkout Nombre_Rama
 
 
 **  Borrar una rama
 
-	git branch -D Nombre
+	git branch -D Nombre_Rama
 
 
 **  Fusionar ramas
+**  (Debemos colocarnos en la rama a la que queremos fusionar los cambios de otra)
 
-	git merge Nombre
+	git merge Nombre_Rama
+
 
 **  Adicional
-**  Crear una ramma y movernos a esta
+**  Crear una ramma y movernos a esta en un solo comando
 
 	git checkout -b Nombre
