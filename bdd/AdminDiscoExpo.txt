@@ -1,0 +1,80 @@
+Create DataBase BDDExpo on Primary
+(name='DatosEjemplo', filename='c:\Prueba BDD3.1\Datos1\Datos1.mdf',
+size=2GB, maxsize=5GB, filegrowth=25% 
+)
+log on
+(name='DatosLog', filename='c:\Prueba BDD3.1\log\DatosLog.ldf',
+size=1GB, maxsize=5GB, filegrowth=25% 
+)
+--Crear los filegroups
+Alter Database BDDExpo
+add filegroup Secundario
+
+
+Alter Database BDDExpo
+add filegroup Terciario
+
+--agregar un archivo a los filegroups
+Alter Database BDDExpo
+add file
+(name='DatosEjem2', filename='c:\Prueba BDD3.1\Datos2\Datos2.ndf',
+size=1GB, maxsize=3GB, filegrowth=25% 
+) to filegroup Secundario
+
+Alter Database BDDExpo
+add file
+(name='DatosEjem3', filename='c:\Prueba BDD3.1\Datos3\Datos3.ndf',
+size=1GB, maxsize=3GB, filegrowth=25% 
+) to filegroup Terciario
+
+--creación de la función
+
+Create partition function FuncionDeParticion(varchar(100))
+as range Left
+for values ('18','65')
+
+--Creacion del Esquema
+
+Create partition scheme EsquemadeParticion
+as partition FuncionDeParticion to 
+([Primary], Secundario, Terciario)
+
+--Creacion de Tabla Particionada
+Create Table Persona
+( numero float, 
+nombre varchar(255),
+edad float, 
+)
+on EsquemadeParticion(edad)
+
+--Agregar Datos a la Tabla
+insert into persona (numero,nombre,
+edad)
+select Id,Nombre,
+Edad 
+from [BDDImportar].dbo.Persona$
+
+--Verificar los datos en la tabla
+select * from Persona order by numero;
+
+-- Revisar la distribucion de los datos 
+select numero , nombre ,edad, $partition.FuncionDeParticion(edad) as particion
+from persona
+order by edad;
+
+--indice particionado 
+create nonclustered index idx_edad
+on persona(nombre)
+include (numero)
+on esquemadeparticion(edad)
+
+
+create nonclustered index idx_edad2
+on persona(nombre)
+include (numero,edad)
+on esquemadeparticion(edad)
+
+drop  index persona.idx_edad2;
+
+select nombre, edad from Persona where nombre like 'm%';
+select nombre, edad from persona where edad>65;
